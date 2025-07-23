@@ -6,6 +6,8 @@ import rubyApiClient from "@/lib/rubyApiClient";
 import { AxiosResponse } from "axios";
 import { LoginResponse } from "@/types/auth";
 import { Input } from "@/components/inputs/input";
+import { Button } from "../buttons/button";
+import Link from "next/link";
 
 export function LoginForm({
 }: {
@@ -64,12 +66,40 @@ export function LoginForm({
                 onChange={e => setPassword(e.target.value)}
                 variant="surface"
             />
-            <button 
+            <Button
                 type="submit"
-                className="w-full px-4 py-3 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors"
+                variant="primary"
+                className="w-full h-14 !text-2xl text-shadow-lg"
             >
                 Log In
-            </button>
+            </Button>
+            <Button
+                type="button"
+                variant="secondary"
+                className="w-full h-14 !text-2xl text-shadow-lg"
+            // TODO: implement demo user login
+            >
+                RUN AS DEMO USER
+            </Button>
+
+            <div className="flex justify-between items-center">
+                <Link
+                    href="/auth/sign-up"
+                    className="text-xl text-foreground hover:underline font-semibold"
+                // TODO: implement forgot password functionality
+                >
+
+                    Sign Up
+                </Link>
+                <Link
+                    href="/auth/forgot-password"
+                    className="text-xl text-foreground hover:underline"
+                // TODO: implement forgot password functionality
+                >
+
+                    Forgot password?
+                </Link>
+            </div>
         </form>
     );
 }

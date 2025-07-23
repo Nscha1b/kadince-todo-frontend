@@ -10,7 +10,7 @@ export default function Home() {
             </h1>
             <div className="flex flex-col md:flex-row gap-14 justify-center items-stretch mt-12 px-8">
                 <div className="flex-1 flex flex-col justify-center lg:items-end items-center">
-                    <StickyNote className="w-[400px]">
+                    <StickyNote className="w-[400px] flex justify-center items-center content-center">
                         <LoginForm />
                     </StickyNote>
 
@@ -25,6 +25,9 @@ export default function Home() {
                     </StickyNote>
                 </div>
             </div>
+            <h1 className="pt-10 text-5xl md:text-7xl font-sans font-bold text-foreground">
+                What our users say
+            </h1>
         </div>
     )
 }
