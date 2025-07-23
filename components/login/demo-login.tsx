@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { handleDemoLogin as demoLogin } from "@/lib/auth";
+import { handleDemoLogin as demoLogin, ROUTE_AFTER_LOGIN } from "@/lib/auth";
 import { Button } from "../buttons/button";
 import { useToast } from "@/contexts/toast-context";
 
@@ -14,7 +14,7 @@ export function DemoLogin({ }: {}) {
         try {
             const user = await demoLogin();
             addToast('Login successful! Welcome back.', 'success');
-            router.push('/dashboard');
+            router.push(ROUTE_AFTER_LOGIN);
         } catch (error) {
             addToast('Demo Login failed. Please try again.', 'error');
             console.log(error);

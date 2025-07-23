@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { handleLogin as authLogin } from "@/lib/auth";
+import { handleLogin as authLogin, ROUTE_AFTER_LOGIN } from "@/lib/auth";
 import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
 import { useToast } from "@/contexts/toast-context";
@@ -25,7 +25,7 @@ export function LoginForm({
         try {
             await authLogin(email, password);
             addToast('Login successful! Welcome back.', 'success');
-            router.push('/dashboard');
+            router.push(ROUTE_AFTER_LOGIN);
         } catch (error) {
             addToast('Login failed. Please check your credentials.', 'error');
             console.log(error);
