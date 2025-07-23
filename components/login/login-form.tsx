@@ -69,14 +69,14 @@ export function LoginForm({
             <Button
                 type="submit"
                 variant="primary"
-                className="w-full h-14 !text-2xl text-shadow-lg"
+                className="w-full h-14 md:!text-2xl text-shadow-lg"
             >
                 Log In
             </Button>
             <Button
                 type="button"
                 variant="secondary"
-                className="w-full h-14 !text-2xl text-shadow-lg"
+                className="w-full h-14 md:!text-2xl text-shadow-lg"
             // TODO: implement demo user login
             >
                 RUN AS DEMO USER

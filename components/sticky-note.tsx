@@ -3,13 +3,17 @@ import classNames from "classnames";
 export function StickyNote({
     children,
     className,
+    wrapperClassName,
     color = "surface",
     folded = false,
+    center = false,
 }: {
     children?: React.ReactNode;
     className?: string;
+    wrapperClassName?: string;
     folded?: boolean;
     color?: "surface" | "primary" | "secondary" | "accent";
+    center?: boolean;
 }) {
 
     const colors = {
@@ -27,12 +31,15 @@ export function StickyNote({
     };
 
     return (
-        <div className="flex">
+        <div className={classNames(
+            "flex",
+            wrapperClassName
+        )}>
             <div
                 className={classNames(
-                    "relative font-sans p-6 inline-block aspect-square rounded-md shadow-md",
+                    "relative font-sans p-6 inline-block aspect-square shadow-md shadow-xl",
                     colors[color],
-
+                    center ? "items-center content-center" : "",
                     className
                 )}
                 style={folded ? { clipPath: foldClipPath } : {}}
