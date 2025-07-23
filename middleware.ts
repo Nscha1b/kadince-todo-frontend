@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
-    const publicPaths = ['/', '/login', '/signup'];
+    const publicPaths = ['/'];
     const isPublic = publicPaths.includes(pathname);
     if (isPublic) return NextResponse.next();
 
@@ -12,7 +12,7 @@ export function middleware(req: NextRequest) {
 
     const isLoggedIn = token && client && uid;
 
-    if (!isLoggedIn) return NextResponse.redirect(new URL('/login', req.url));
+    if (!isLoggedIn) return NextResponse.redirect(new URL('/', req.url));
 
     return NextResponse.next();
 }
@@ -24,6 +24,6 @@ export const config = {
         // /login
         // /signup
         // static files and api routes
-        '/((?!api|_next|favicon.ico|login|signup$).*)',
+        '/((?!api|_next|favicon.ico|$).*)',
     ],
 };

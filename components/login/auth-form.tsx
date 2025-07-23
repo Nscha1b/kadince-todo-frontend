@@ -8,6 +8,7 @@ import { Button } from "../buttons/button";
 import { LoginForm } from "./login-form";
 import { SignUpForm } from "./sign-up-form";
 import { ResetForm } from "./reset-form";
+import { DemoLogin } from "./demo-login";
 
 export function AuthForm({
 }: {
@@ -45,14 +46,7 @@ export function AuthForm({
                 />
             )}
 
-            <Button
-                type="button"
-                variant="secondary"
-                className="w-full h-14 md:!text-2xl text-shadow-lg mt-2"
-            // TODO: implement demo user login
-            >
-                RUN AS DEMO USER
-            </Button>
+            <DemoLogin />
             <div className="flex justify-center text-center pt-4">
                 <span>Switch to...</span>
             </div>

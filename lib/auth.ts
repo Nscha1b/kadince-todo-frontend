@@ -1,5 +1,5 @@
 import rubyApiClient from "@/lib/rubyApiClient";
-import { AxiosResponse } from "axios";
+import { AxiosResponse, AxiosResponseHeaders, AxiosHeaders } from "axios";
 import { LoginResponse, SignUpResponse } from "@/types/auth";
 
 export const handleLogin = async (
@@ -13,22 +13,17 @@ export const handleLogin = async (
         }, { headers: { 'Content-Type': 'application/json' } });
         
         const data = res.data;
-
-        const accessToken = res.headers['access-token']
-        const client = res.headers['client']
-        const uid = res.headers['uid']
-
+        const respHeaders = getLoginHeaders(res.headers);
         await fetch('/api/auth/set-cookie', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ accessToken, client, uid }),
+            body: JSON.stringify(respHeaders),
         });
 
         return data;
     } catch (error) {
-        // TODO: need to setup some sort of flashing / notifications
         console.log(error);
-        throw error; // Re-throw so the component can handle it
+        throw error;
     }
 };
 
@@ -48,8 +43,34 @@ export const handleSignUp = async (
 
         return data;
     } catch (error) {
-        // TODO: need to setup some sort of flashing / notifications
         console.log(error);
-        throw error; // Re-throw so the component can handle it
+        throw error;
     }
 };
+
+export const handleDemoLogin = async (): Promise<LoginResponse | undefined> => {
+    try {
+        const res: AxiosResponse<LoginResponse> = await rubyApiClient.post('/demo_login', null, { headers: { 'Content-Type': 'application/json' } });
+        const data = res.data;
+        const respHeaders = getLoginHeaders(res.headers);
+        await fetch('/api/auth/set-cookie', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(respHeaders),
+        });
+
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+const getLoginHeaders = (headers: AxiosResponseHeaders | Partial<AxiosHeaders>) => {
+        const accessToken = headers['access-token']
+        const client = headers['client']
+        const uid = headers['uid']
+
+    return { accessToken, client, uid };
+};
+
