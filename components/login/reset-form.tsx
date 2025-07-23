@@ -6,12 +6,13 @@ import { handleLogin as authLogin } from "@/lib/auth";
 import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
 
-export function LoginForm({
+export function ResetForm({
 }: {
     }) {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,20 +36,12 @@ export function LoginForm({
                 onChange={e => setEmail(e.target.value)}
                 variant="surface"
             />
-            <Input
-                label={{ text: 'Password', hideLabel: true }}
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                variant="surface"
-            />
             <Button
                 type="submit"
                 variant="primary"
                 className="w-full h-14 md:!text-2xl text-shadow-lg"
             >
-                Log In
+                Send Reset Link
             </Button>
         </form>
     );

@@ -6,12 +6,13 @@ import { handleLogin as authLogin } from "@/lib/auth";
 import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
 
-export function LoginForm({
+export function SignUpForm({
 }: {
     }) {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -43,12 +44,20 @@ export function LoginForm({
                 onChange={e => setPassword(e.target.value)}
                 variant="surface"
             />
+            <Input
+                label={{ text: 'Confirm Password', hideLabel: true }}
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                variant="surface"
+            />
             <Button
                 type="submit"
                 variant="primary"
                 className="w-full h-14 md:!text-2xl text-shadow-lg"
             >
-                Log In
+                Sign Up
             </Button>
         </form>
     );

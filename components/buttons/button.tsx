@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'surface' | 'accent' | 'secondary';
+  variant?: 'primary' | 'surface' | 'accent' | 'secondary' | 'plain';
   children?: React.ReactNode;
   className?: string;
 }
@@ -19,7 +19,8 @@ export function Button({
         primary: "bg-primary hover:brightness-95 text-white focus:ring-primary-dark ",
         surface: "bg-surface-light hover:brightness-95 text-gray-900 focus:ring-surface-dark",
         accent: "bg-accent hover:brightness-95 text-white focus:ring-accent-dark",
-        secondary: "bg-secondary hover:brightness-95 text-white focus:ring-secondary-dark"
+        secondary: "bg-secondary hover:brightness-95 text-white focus:ring-secondary-dark",
+        plain: "text-xl text-foreground hover:underline"
     };
     return (
         <button
