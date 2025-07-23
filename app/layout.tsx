@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Indie_Flower } from "next/font/google";
 import "./globals.css";
+import { ToastProvider } from "@/contexts/toast-context";
+import { ToastContainer } from "@/components/toast/toast-container";
 
 const interSans = Inter({
     variable: "--font-inter-sans",
@@ -28,11 +30,14 @@ export default function RootLayout({
       <body
         className={`${interSans.variable} ${indieFlower.variable} antialiased`}
       >
-        <div
-          className="max-w-[1300px] mx-auto px-2 md:px-8 lg:px-12 xl:px-16 2xl:px-20"
-          >
-          {children}
-        </div>
+        <ToastProvider>
+          <div
+            className="max-w-[1300px] mx-auto px-2 md:px-8 lg:px-12 xl:px-16 2xl:px-20"
+            >
+            {children}
+          </div>
+          <ToastContainer />
+        </ToastProvider>
       </body>
     </html>
   );
