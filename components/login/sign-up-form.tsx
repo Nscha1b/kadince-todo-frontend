@@ -2,23 +2,33 @@
 import classNames from "classnames";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { handleLogin as authLogin } from "@/lib/auth";
+import { handleSignUp as authSignup } from "@/lib/auth";
 import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
 
 export function SignUpForm({
+    email,
+    setEmail,
+    password,
+    setPassword
 }: {
-    }) {
+    email: string;
+    setEmail: (email: string) => void;
+    password: string;
+    setPassword: (password: string) => void;
+}) {
     const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const user = await authLogin(email, password);
-            router.push('/dashboard');
+            const resp = await authSignup(email, password, confirmPassword);
+            if (resp?.status === 'success') {
+                // need a way to switch form back?
+            } else {
+                // TODO: handle error case
+            }
         } catch (error) {
             // TODO: need to setup some sort of flashing / notifications
             console.log(error);
@@ -27,7 +37,7 @@ export function SignUpForm({
 
 
     return (
-        <form onSubmit={handleLogin} className="w-full max-w-md mx-auto space-y-4">
+        <form onSubmit={handleSignUp} className="w-full max-w-md mx-auto space-y-4">
             <Input
                 label={{ text: 'Email address', hideLabel: true }}
                 type="email"

@@ -17,17 +17,31 @@ export function AuthForm({
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-
     return (
         <>
             {formType === 'login' && (
-                <LoginForm />
+                <LoginForm 
+                    email={email} 
+                    setEmail={setEmail}
+                    password={password}
+                    setPassword={setPassword}
+                />
             )}
             {formType === 'signup' && (
-                <SignUpForm />
+                <SignUpForm 
+                    email={email} 
+                    setEmail={setEmail}
+                    password={password}
+                    setPassword={setPassword}
+                />
             )}
             {formType === 'forgot-password' && (
-                <ResetForm />
+                <ResetForm 
+                    email={email} 
+                    setEmail={setEmail}
+                    password={password}
+                    setPassword={setPassword}
+                />
             )}
 
                         <Button

@@ -7,11 +7,17 @@ import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
 
 export function ResetForm({
+    email,
+    setEmail,
+    password,
+    setPassword
 }: {
-    }) {
+    email: string;
+    setEmail: (email: string) => void;
+    password: string;
+    setPassword: (password: string) => void;
+}) {
     const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleLogin = async (e: React.FormEvent) => {
