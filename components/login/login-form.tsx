@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import rubyApiClient from "@/lib/rubyApiClient";
 import { AxiosResponse } from "axios";
 import { LoginResponse } from "@/types/auth";
+import { Input } from "@/components/inputs/input";
 
 export function LoginForm({
 }: {
@@ -47,19 +48,21 @@ export function LoginForm({
 
     return (
         <form onSubmit={handleLogin} className="w-full max-w-md mx-auto space-y-4">
-            <input
+            <Input
+                label={{ text: 'Email address', hideLabel: true }}
                 type="email"
                 placeholder="Email address"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-surface-light text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                variant="surface"
             />
-            <input
+            <Input
+                label={{ text: 'Password', hideLabel: true }}
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                variant="surface"
             />
             <button 
                 type="submit"
