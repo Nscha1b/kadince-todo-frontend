@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background */
+  --background-light: #EDFFF0;
+  --background: #DFFFE2;
+  --background-dark: #B6E7C3;
+
+  /* Foreground */
+  --foreground-light: #6E6E6E;
+  --foreground: #414040;
+  --foreground-dark: #232323;
+
+  /* Primary */
+  --primary-light: #B6E7A0;
+  --primary: #98D96A;
+  --primary-dark: #6CA943;
+
+  /* Secondary */
+  --secondary-light: #CFEFFF;
+  --secondary: #ADD8E6;
+  --secondary-dark: #7FB8D8;
+
+  /* Accent */
+  --accent-light: #FFD1DC;
+  --accent: #FFB6C1;
+  --accent-dark: #FF6F91;
+
+  /* Surface */
+  --surface-light: #FFFFE5;
+  --surface: #FFFACD;
+  --surface-dark: #FFF176;
+
+  /* Muted */
+  --muted-light: #CCCCCC;
+  --muted: #999999;
+  --muted-dark: #666666;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui;
+  --font-handwriting: 'Indie Flower', cursive;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+
+  --color-background-light: var(--background-light);
+  --color-foreground-light: var(--foreground-light);
+  --color-primary-light: var(--primary-light);
+  --color-secondary-light: var(--secondary-light);
+  --color-accent-light: var(--accent-light);
+  --color-surface-light: var(--surface-light);
+  --color-muted-light: var(--muted-light);
+  --color-background-dark: var(--background-dark);
+  --color-foreground-dark: var(--foreground-dark);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary-dark: var(--secondary-dark);
+  --color-accent-dark: var(--accent-dark);
+  --color-surface-dark: var(--surface-dark);
+  --color-muted-dark: var(--muted-dark);
+
+  --font-sans: var(--font-sans);
+  --font-handwriting: var(--font-handwriting);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/*@media (prefers-color-scheme: dark) {*/
+/*  :root {*/
+/*    --background: #0a0a0a;*/
+/*    --foreground: #ededed;*/
+/*  }*/
+/*}*/
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
