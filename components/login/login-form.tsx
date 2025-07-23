@@ -41,7 +41,7 @@ export function LoginForm({
                 placeholder="Email address"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                variant="surface"
+                variant="surface-light"
             />
             <Input
                 label={{ text: 'Password', hideLabel: true }}
@@ -49,7 +49,7 @@ export function LoginForm({
                 placeholder="Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                variant="surface"
+                variant="surface-light"
             />
             <Button
                 type="submit"

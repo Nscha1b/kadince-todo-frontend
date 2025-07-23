@@ -47,7 +47,7 @@ export function SignUpForm({
                 placeholder="Email address"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                variant="surface"
+                variant="surface-light"
             />
             <Input
                 label={{ text: 'Password', hideLabel: true }}
@@ -55,7 +55,7 @@ export function SignUpForm({
                 placeholder="Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                variant="surface"
+                variant="surface-light"
             />
             <Input
                 label={{ text: 'Confirm Password', hideLabel: true }}
@@ -63,7 +63,7 @@ export function SignUpForm({
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={e => setConfirmPassword(e.target.value)}
-                variant="surface"
+                variant="surface-light"
             />
             <Button
                 type="submit"

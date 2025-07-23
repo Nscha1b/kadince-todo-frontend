@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  variant?: 'default' | 'surface';
+  variant?: 'default' | 'surface' | 'surface-light';
   error?: boolean;
   helperText?: string;
   label?: {
@@ -25,7 +25,8 @@ export function Input({
     
     const variantClasses = {
         default: "bg-white",
-        surface: "bg-surface-light"
+        surface: "bg-surface",
+        "surface-light": "bg-surface-light"
     };
     
     const stateClasses = error 

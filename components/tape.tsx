@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
 interface TapeProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -7,7 +7,7 @@ interface TapeProps extends React.HTMLAttributes<HTMLDivElement> {
 export function Tape({ children, className }: TapeProps) {
     return (
         <div
-            className={classNames(
+            className={twMerge(
                 "inline-block bg-white/18 backdrop-blur-sm border border-white/20 rounded-sm px-2 py-1 shadow-inner shadow-white/20 text-foreground",
                 className
             )}

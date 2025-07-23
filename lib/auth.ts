@@ -2,7 +2,7 @@ import rubyApiClient from "@/lib/rubyApiClient";
 import { AxiosResponse, AxiosResponseHeaders, AxiosHeaders } from "axios";
 import { LoginResponse, SignUpResponse } from "@/types/auth";
 
-export const ROUTE_AFTER_LOGIN = '/projects';
+export const ROUTE_AFTER_LOGIN = '/todos';
 
 export const handleLogin = async (
     email: string, 
