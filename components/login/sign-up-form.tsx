@@ -1,23 +1,25 @@
 'use client';
-import classNames from "classnames";
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { handleSignUp as authSignup } from "@/lib/auth";
 import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
+import { useToast } from "@/contexts/toast-context";
 
 export function SignUpForm({
     email,
     setEmail,
     password,
-    setPassword
+    setPassword,
+    setFormType
 }: {
     email: string;
     setEmail: (email: string) => void;
     password: string;
     setPassword: (password: string) => void;
+    setFormType: (formType: 'login' | 'signup' | 'forgot-password') => void;
+
 }) {
-    const router = useRouter();
+    const { addToast } = useToast();
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSignUp = async (e: React.FormEvent) => {
@@ -25,12 +27,13 @@ export function SignUpForm({
         try {
             const resp = await authSignup(email, password, confirmPassword);
             if (resp?.status === 'success') {
-                // need a way to switch form back?
+                addToast('Account created successfully! Please check your email.', 'success');
+                setFormType('login')
             } else {
-                // TODO: handle error case
+                addToast('Failed to create account. Please try again.', 'error');
             }
         } catch (error) {
-            // TODO: need to setup some sort of flashing / notifications
+            addToast('An error occurred during sign up. Please try again.', 'error');
             console.log(error);
         }
     };

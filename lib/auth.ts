@@ -46,16 +46,6 @@ export const handleSignUp = async (
         
         const data = res.data;
 
-        // const accessToken = res.headers['access-token']
-        // const client = res.headers['client']
-        // const uid = res.headers['uid']
-
-        // await fetch('/api/auth/set-cookie', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ accessToken, client, uid }),
-        // });
-
         return data;
     } catch (error) {
         // TODO: need to setup some sort of flashing / notifications

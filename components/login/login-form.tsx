@@ -1,10 +1,10 @@
 'use client';
-import classNames from "classnames";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { handleLogin as authLogin } from "@/lib/auth";
 import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
+import { useToast } from "@/contexts/toast-context";
 
 export function LoginForm({
     email,
@@ -18,14 +18,16 @@ export function LoginForm({
     setPassword: (password: string) => void;
 }) {
     const router = useRouter();
+    const { addToast } = useToast();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const user = await authLogin(email, password);
+            await authLogin(email, password);
+            addToast('Login successful! Welcome back.', 'success');
             router.push('/dashboard');
         } catch (error) {
-            // TODO: need to setup some sort of flashing / notifications
+            addToast('Login failed. Please check your credentials.', 'error');
             console.log(error);
         }
     };
