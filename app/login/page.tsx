@@ -1,7 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, {useState} from 'react';
+import {useRouter} from 'next/navigation';
+import rubyApiClient from "@/lib/rubyApiClient";
+import {AxiosResponse} from "axios";
+import {LoginResponse} from "@/types/auth";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -11,31 +14,32 @@ export default function LoginPage() {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch('http://localhost:3000/auth/sign_in', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        });
+        try {
+            const res: AxiosResponse<LoginResponse> = await rubyApiClient.post('/auth/sign_in', {
+                email,
+                password
+            }, {headers: {'Content-Type': 'application/json'}});
+            const data = res.data;
+            console.log('data', data);
 
-        // TODO: need to setup some sort of flashing / notifications
-        if (!res.ok) throw new Error('Login failed');
+            const accessToken = res.headers['access-token']
+            const client = res.headers['client']
+            const uid = res.headers['uid']
 
-        // TODO: need to store data in a provider or something
-        const data = await res.json();
+            await fetch('/api/auth/set-cookie', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({accessToken, client, uid}),
+            });
 
-        const accessToken = res.headers.get('access-token');
-        const client = res.headers.get('client');
-        const uid = res.headers.get('uid');
+            router.push('/dashboard');
 
-        await fetch('/api/auth/set-cookie', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ accessToken, client, uid }),
-        });
+            return data;
+        } catch (error) {
+            // TODO: need to setup some sort of flashing / notifications
+            console.log(error);
+        }
 
-        router.push('/dashboard');
-
-        return data;
     };
 
 
