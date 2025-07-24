@@ -15,6 +15,9 @@ export interface Todo {
     description?: string;
     completed: boolean;
     priority?: 'low' | 'medium' | 'high';
+    created_at?: Date;
+    updated_at?: Date;
+    user_id: number;
 }
 
 export interface TodoFormData {

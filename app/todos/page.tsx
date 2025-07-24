@@ -1,26 +1,26 @@
 'use client'
 import { AddTodo } from "@/components/add-todo";
 import { Todo, TodoCard } from "@/components/todo-card";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import rubyApiClient from "@/lib/rubyApiClient";
+import { AxiosResponse } from "axios";
+import { useToast } from "@/contexts/toast-context";
 
 export default function Todos() {
+    const { addToast } = useToast();
     const [todos, setTodos] = useState<Todo[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchTodos() {
-            try {
-                const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-                setTodos(response.data);
-            } catch (error) {
-                console.error('Error fetching todos:', error);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchTodos();
+        rubyApiClient.get('/todos')
+      .then((todoArray: AxiosResponse<Todo[]>) => {
+        setTodos(todoArray.data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.log(err);
+        addToast("Failed to load todos. Please try again.", "error");
+      })
     }, []);
 
     if (loading) {
@@ -38,35 +38,9 @@ export default function Todos() {
             </div>
 
             <div className="flex flex-col justify-center items-center mt-4 px-2 lg:px-8">
-                <TodoCard
-                    todo={{
-                        id: "1",
-                        title: "Sample Todo",
-                        description: "This is a sample todo",
-                        priority: "high",
-                        completed: true,
-                    }}
-                />
-
-                <TodoCard
-                    todo={{
-                        id: "2",
-                        title: "Sample Todo",
-                        description: "This is a sample todo",
-                        priority: "low",
-                        completed: true,
-                    }}
-                />
-
-                <TodoCard
-                    todo={{
-                        id: "3",
-                        title: "Sample Todo",
-                        description: "This is a sample todo",
-                        priority: "medium",
-                        completed: true,
-                    }}
-                />
+                {todos.map(todo => (
+                    <TodoCard key={todo.id} todo={todo} />
+                ))}
             </div>
         </div>
     );

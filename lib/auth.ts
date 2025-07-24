@@ -72,7 +72,9 @@ const getLoginHeaders = (headers: AxiosResponseHeaders | Partial<AxiosHeaders>) 
         const accessToken = headers['access-token']
         const client = headers['client']
         const uid = headers['uid']
+        const tokenType = headers['token-type'] || 'Bearer';
+        const expiry = headers['expiry'] || '0';
 
-    return { accessToken, client, uid };
+    return { accessToken, client, uid, tokenType, expiry };
 };
 
