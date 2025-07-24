@@ -1,10 +1,11 @@
 'use client'
 import { AddTodo } from "@/components/add-todo";
-import { Todo, TodoCard } from "@/components/todo-card";
 import { useEffect, useState } from "react";
 import rubyApiClient from "@/lib/rubyApiClient";
 import { AxiosResponse } from "axios";
 import { useToast } from "@/contexts/toast-context";
+import { Todo } from "@/types/todos";
+import { TodoCard } from "@/components/todo-card";
 
 export default function Todos() {
     const { addToast } = useToast();
