@@ -12,16 +12,16 @@ export default function Todos() {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const fetchTodos = () => {
+    setLoading(true);
+    rubyApiClient.get('/todos')
+        .then((todoArray: AxiosResponse<Todo[]>) => setTodos(todoArray.data))
+        .catch(err => addToast("Failed to load todos", "error"))
+        .finally(() => setLoading(false));
+};
+
     useEffect(() => {
-        rubyApiClient.get('/todos')
-      .then((todoArray: AxiosResponse<Todo[]>) => {
-        setTodos(todoArray.data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.log(err);
-        addToast("Failed to load todos. Please try again.", "error");
-      })
+        fetchTodos();
     }, []);
 
     if (loading) {
@@ -35,7 +35,7 @@ export default function Todos() {
             </h1>
 
             <div className="flex justify-center items-center mt-4 px-2 lg:px-8">
-                <AddTodo />
+                <AddTodo onSave={fetchTodos} />
             </div>
 
             <div className="flex flex-col justify-center items-center mt-4 px-2 lg:px-8">
