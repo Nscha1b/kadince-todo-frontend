@@ -2,7 +2,7 @@
 import classNames from "classnames";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { handleLogin as authLogin } from "@/lib/auth";
+import { handleLogin as authLogin, ROUTE_AFTER_LOGIN } from "@/lib/auth";
 import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
 
@@ -24,7 +24,7 @@ export function ResetForm({
         e.preventDefault();
         try {
             const user = await authLogin(email, password);
-            router.push('/dashboard');
+            router.push(ROUTE_AFTER_LOGIN);
         } catch (error) {
             // TODO: need to setup some sort of flashing / notifications
             console.log(error);

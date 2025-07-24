@@ -1,5 +1,4 @@
 import { StickyNote } from "@/components/sticky-note";
-import { LoginForm } from "@/components/login/login-form";
 import classNames from "classnames";
 import { Tape } from "@/components/tape";
 import { AuthForm } from "@/components/login/auth-form";
@@ -15,8 +14,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row gap-14 justify-center items-stretch mt-12 px-2 lg:px-8">
                 {/* LEFT COL */}
                 <div className="flex-1 flex flex-col justify-center items-center lg:items-start">
-                    <StickyNote center={true} className="w-full lg:w-[400px] flex justify-center outline-2 outline-offset-2 outline-foreground">
-                        {/* <LoginForm /> */}
+                    <StickyNote center={true} className="w-full lg:w-[400px] flex justify-center outline-2 outline-offset-2 outline-foreground flex-col">
                         <AuthForm />
                     </StickyNote>
                 </div>

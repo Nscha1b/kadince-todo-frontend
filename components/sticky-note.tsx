@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
 
 export function StickyNote({
     children,
@@ -36,7 +37,7 @@ export function StickyNote({
             wrapperClassName
         )}>
             <div
-                className={classNames(
+                className={twMerge(
                     "relative font-sans p-6 inline-block aspect-square shadow-md shadow-xl",
                     colors[color],
                     center ? "items-center content-center" : "",
