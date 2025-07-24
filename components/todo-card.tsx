@@ -8,23 +8,7 @@ import { Tooltip } from "./tooltip/tooltip";
 import { Input } from "./inputs/input";
 import { Tape } from "./tape";
 import { twMerge } from "tailwind-merge";
-
-export interface Todo {
-    id: string;
-    title: string;
-    description?: string;
-    completed: boolean;
-    priority?: 'low' | 'medium' | 'high';
-    created_at?: Date;
-    updated_at?: Date;
-    user_id: number;
-}
-
-export interface TodoFormData {
-    title: string;
-    description?: string;
-    priority?: 'low' | 'medium' | 'high';
-}
+import { Todo, TodoFormData } from "@/types/todos";
 
 
 export function TodoCard({
