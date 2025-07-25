@@ -18,15 +18,13 @@ export function TodoCard({
     onSave,
     onDelete,
     onToggleComplete,
-    children,
 }: {
     todo?: Todo;
     creating?: boolean;
     setCreating?: (creating: boolean) => void;
     onSave?: (todoData: TodoFormData) => void;
-    onDelete?: (todoId: string) => void;
-    onToggleComplete?: (todoId: string) => void;
-    children?: React.ReactNode;
+    onDelete?: (todo: Todo) => void;
+    onToggleComplete?: (todo: Todo) => void;
 }) {
     const [editing, setEditing] = useState<boolean>(false);
     const [deleting, setDeleting] = useState<boolean>(false);
@@ -37,9 +35,11 @@ export function TodoCard({
         priority: todo?.priority || 'low',
     });
 
+    const resetNewTodos = () => setFormData({title: '', description: '', priority: 'medium'});
+
     const handleDelete = () => {
         if (todo && onDelete) {
-            onDelete(todo.id);
+            onDelete(todo);
         }
         setDeleting(false);
     };
@@ -47,24 +47,13 @@ export function TodoCard({
     const handleSave = () => {
         if (onSave && formData.title.trim()) {
             onSave(formData);
-            if (creating) {
-                // Reset form for creating new todos
-                setFormData({
-                    title: '',
-                    description: '',
-                    priority: 'medium',
-                });
-            } else {
-                setEditing(false);
-            }
+            creating ? resetNewTodos() : setEditing(false);
         }
     };
 
     const handleToggleComplete = () => {
-        if (todo && onToggleComplete) {
-            todo.completed = true;
-            onToggleComplete(todo.id);
-        }
+        if (!todo || !onToggleComplete) return;
+        onToggleComplete(todo);
     };
 
     const getPriorityColor = (priority?: string) => {

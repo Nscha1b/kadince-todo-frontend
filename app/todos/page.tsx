@@ -4,29 +4,59 @@ import { useEffect, useState } from "react";
 import rubyApiClient from "@/lib/rubyApiClient";
 import { AxiosResponse } from "axios";
 import { useToast } from "@/contexts/toast-context";
-import { Todo } from "@/types/todos";
+import { Todo, TodoFormData } from "@/types/todos";
 import { TodoCard } from "@/components/todo-card";
+import Cookies from 'js-cookie';
 
 export default function Todos() {
     const { addToast } = useToast();
     const [todos, setTodos] = useState<Todo[]>([]);
-    const [loading, setLoading] = useState(true);
 
     const fetchTodos = () => {
-    setLoading(true);
-    rubyApiClient.get('/todos')
-        .then((todoArray: AxiosResponse<Todo[]>) => setTodos(todoArray.data))
-        .catch(err => addToast("Failed to load todos", "error"))
-        .finally(() => setLoading(false));
-};
+        rubyApiClient.get('/todos')
+            .then((todoArray: AxiosResponse<Todo[]>) => setTodos(todoArray.data))
+            .catch(err => addToast("Failed to load todos", "error"))
+    };
+
+    const updateTodo = (todo: Todo) => {
+        rubyApiClient.patch(`/todos/${todo.id}`, todo)
+            .then(() => {
+                fetchTodos();
+                addToast("Todo updated successfully!", "success");
+            })
+            .catch(err => {
+                console.error("Failed to update todo:", err);
+                addToast("Failed to updated todo", "error");
+            });
+    }
+
+    const editTodo = (todoData: TodoFormData, todo: Todo) => {
+        todo.title = todoData.title.trim();
+        todo.description = todoData.description;
+        todo.priority = todoData.priority;
+        updateTodo(todo);
+    }
+
+    const completeTodo = (todo: Todo) => {
+        todo.completed = !todo.completed;
+        updateTodo(todo);
+    }
+
+    const deleteTodo = (todo: Todo) => {
+        rubyApiClient.delete(`/todos/${todo.id}`)
+            .then(() => {
+                fetchTodos();
+                addToast("Todo Deleted successfully!", "success");
+            })
+            .catch(err => {
+                console.error("Failed to delete todo:", err);
+                addToast("Failed to delete todo", "error");
+            });
+    }
 
     useEffect(() => {
         fetchTodos();
     }, []);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <div className="flex w-full flex-col">
@@ -40,7 +70,19 @@ export default function Todos() {
 
             <div className="flex flex-col justify-center items-center mt-4 px-2 lg:px-8">
                 {todos.map(todo => (
-                    <TodoCard key={todo.id} todo={todo} />
+                    <TodoCard
+                        key={todo.id}
+                        todo={todo}
+                        onDelete={
+                            (todo) => deleteTodo(todo)
+                        }
+                        onToggleComplete={
+                            (todo) => completeTodo(todo)
+                        }
+                        onSave={
+                            (formdata) => editTodo(formdata, todo)
+                        }
+                    />
                 ))}
             </div>
         </div>

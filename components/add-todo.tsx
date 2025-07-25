@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { useToast } from '@/contexts/toast-context';
 
 interface AddTodoProps {
-    onSave: (todoData: any) => void;
+    onSave: () => void;
 }
 
 export function AddTodo({ onSave }: AddTodoProps) {
@@ -17,19 +17,19 @@ export function AddTodo({ onSave }: AddTodoProps) {
 
     return (
         <>
-            { !creating && (
+            {!creating && (
                 <Button className="max-w-xs justify-self-center align-self-center text-center" variant="primary" onClick={() => setCreating(true)}>Add Todo</Button>
             )}
 
-            { creating && (
+            {creating && (
                 <TodoCard
                     creating={creating}
                     setCreating={setCreating}
                     onSave={(todoData) => {
-                        const todo = {...todoData, user_id: Cookies.get('user_id')};
+                        const todo = { ...todoData, user_id: Cookies.get('user_id') };
                         rubyApiClient.post('/todos', todo)
                             .then(() => {
-                                onSave(todoData);
+                                onSave();
                                 addToast("Todo created successfully!", "success");
                                 setCreating(false);
                             })
