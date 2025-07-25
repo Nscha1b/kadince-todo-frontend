@@ -11,6 +11,8 @@ rubyApiClient.interceptors.request.use((config) => {
         config.headers['access-token'] = Cookies.get('access-token') ?? '';
         config.headers['client'] = Cookies.get('client') ?? '';
         config.headers['uid'] = Cookies.get('uid') ?? '';
+        config.headers['token-type'] = Cookies.get('token-type') ?? '';
+        config.headers['expiry'] = Cookies.get('expiry') ?? '';
     }
 
     return config;

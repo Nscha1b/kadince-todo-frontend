@@ -23,7 +23,7 @@ export function ResetForm({
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const user = await authLogin(email, password);
+            await authLogin(email, password);
             router.push(ROUTE_AFTER_LOGIN);
         } catch (error) {
             // TODO: need to setup some sort of flashing / notifications

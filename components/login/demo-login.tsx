@@ -12,7 +12,7 @@ export function DemoLogin({ }: {}) {
     const handleDemoLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const user = await demoLogin();
+            await demoLogin();
             addToast('Login successful! Welcome back.', 'success');
             router.push(ROUTE_AFTER_LOGIN);
         } catch (error) {

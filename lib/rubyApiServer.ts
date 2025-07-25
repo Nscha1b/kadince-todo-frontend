@@ -11,6 +11,8 @@ export default function createRubyApiServer(req: IncomingMessage) {
             'access-token': cookies['access-token'] ?? '',
             client: cookies['client'] ?? '',
             uid: cookies['uid'] ?? '',
+            'token-type': cookies['token-type'] ?? '',
+            expiry: cookies['expiry'] ?? '',
         },
     });
 }

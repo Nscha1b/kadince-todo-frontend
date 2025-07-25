@@ -1,53 +1,89 @@
-import { StickyNote } from "@/components/sticky-note";
-import classNames from "classnames";
-import { Tape } from "@/components/tape";
-import { AuthForm } from "@/components/login/auth-form";
-import { StickyNoteCard } from "@/components/sticky-note-card";
-import { Button } from "@/components/buttons/button";
+'use client'
 import { AddTodo } from "@/components/add-todo";
+import { useEffect, useState } from "react";
+import rubyApiClient from "@/lib/rubyApiClient";
+import { AxiosResponse } from "axios";
+import { useToast } from "@/contexts/toast-context";
+import { Todo, TodoFormData } from "@/types/todos";
 import { TodoCard } from "@/components/todo-card";
+import Cookies from 'js-cookie';
 
 export default function Todos() {
+    const { addToast } = useToast();
+    const [todos, setTodos] = useState<Todo[]>([]);
+
+    const fetchTodos = () => {
+        rubyApiClient.get('/todos')
+            .then((todoArray: AxiosResponse<Todo[]>) => setTodos(todoArray.data))
+            .catch(err => addToast("Failed to load todos", "error"))
+    };
+
+    const updateTodo = (todo: Todo) => {
+        rubyApiClient.patch(`/todos/${todo.id}`, todo)
+            .then(() => {
+                fetchTodos();
+                addToast("Todo updated successfully!", "success");
+            })
+            .catch(err => {
+                console.error("Failed to update todo:", err);
+                addToast("Failed to updated todo", "error");
+            });
+    }
+
+    const editTodo = (todoData: TodoFormData, todo: Todo) => {
+        todo.title = todoData.title.trim();
+        todo.description = todoData.description;
+        todo.priority = todoData.priority;
+        updateTodo(todo);
+    }
+
+    const completeTodo = (todo: Todo) => {
+        todo.completed = !todo.completed;
+        updateTodo(todo);
+    }
+
+    const deleteTodo = (todo: Todo) => {
+        rubyApiClient.delete(`/todos/${todo.id}`)
+            .then(() => {
+                fetchTodos();
+                addToast("Todo Deleted successfully!", "success");
+            })
+            .catch(err => {
+                console.error("Failed to delete todo:", err);
+                addToast("Failed to delete todo", "error");
+            });
+    }
+
+    useEffect(() => {
+        fetchTodos();
+    }, []);
+
     return (
         <div className="flex w-full flex-col">
-            <h1 className="pt-10 text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-foreground text-center">
+            <h1 className="pt-6 text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-foreground text-center">
                 Todo's
             </h1>
 
             <div className="flex justify-center items-center mt-4 px-2 lg:px-8">
-                <AddTodo />
+                <AddTodo onSave={fetchTodos} />
             </div>
 
             <div className="flex flex-col justify-center items-center mt-4 px-2 lg:px-8">
-                <TodoCard
-                    todo={{
-                        id: "1",
-                        title: "Sample Todo",
-                        description: "This is a sample todo",
-                        priority: "high",
-                        completed: true,
-                    }}
-                />
-
-                                <TodoCard
-                    todo={{
-                        id: "2",
-                        title: "Sample Todo",
-                        description: "This is a sample todo",
-                        priority: "low",
-                        completed: true,
-                    }}
-                />
-
-                                <TodoCard
-                    todo={{
-                        id: "3",
-                        title: "Sample Todo",
-                        description: "This is a sample todo",
-                        priority: "medium",
-                        completed: true,
-                    }}
-                />
+                {todos.map(todo => (
+                    <TodoCard
+                        key={todo.id}
+                        todo={todo}
+                        onDelete={
+                            (todo) => deleteTodo(todo)
+                        }
+                        onToggleComplete={
+                            (todo) => completeTodo(todo)
+                        }
+                        onSave={
+                            (formdata) => editTodo(formdata, todo)
+                        }
+                    />
+                ))}
             </div>
         </div>
     );
