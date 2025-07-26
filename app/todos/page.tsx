@@ -8,6 +8,7 @@ import { Todo, TodoFormData } from "@/types/todos";
 import { TodoCard } from "@/components/todo-card";
 import { FilterTodos } from "@/components/filter-todos";
 import { useSearchParams } from "next/navigation";
+import { Logout } from "@/components/login/logout";
 
 export default function Todos() {
     const searchParams = useSearchParams();
@@ -73,6 +74,7 @@ export default function Todos() {
 
     return (
         <div className="flex w-full flex-col">
+            <Logout />
             <h1 className="pt-6 text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-foreground text-center">
                 Todo's
             </h1>
@@ -80,7 +82,6 @@ export default function Todos() {
             <div className="flex justify-start items-center mt-4 px-2 lg:px-8">
                 <FilterTodos
                     filter={filter}
-                    // setFilter={setFilter}
                 />
             </div>
 
