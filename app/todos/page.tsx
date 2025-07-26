@@ -6,14 +6,27 @@ import { AxiosResponse } from "axios";
 import { useToast } from "@/contexts/toast-context";
 import { Todo, TodoFormData } from "@/types/todos";
 import { TodoCard } from "@/components/todo-card";
-import Cookies from 'js-cookie';
+import { FilterTodos } from "@/components/filter-todos";
+import { useSearchParams } from "next/navigation";
 
 export default function Todos() {
+    const searchParams = useSearchParams();
     const { addToast } = useToast();
     const [todos, setTodos] = useState<Todo[]>([]);
 
+    const completedParam = searchParams?.get('completed');
+    const setFilter = () => {
+        switch (completedParam) {
+            case 'true': return 'Completed';
+            case 'false': return 'To do';
+            default: return 'All';
+        }
+    }
+    const filter = setFilter();
+
     const fetchTodos = () => {
-        rubyApiClient.get('/todos')
+        const query = searchParams?.size ? `?${searchParams.toString()}` : '';
+        rubyApiClient.get(`/todos${query}`)
             .then((todoArray: AxiosResponse<Todo[]>) => setTodos(todoArray.data))
             .catch(err => addToast("Failed to load todos", "error"))
     };
@@ -56,13 +69,20 @@ export default function Todos() {
 
     useEffect(() => {
         fetchTodos();
-    }, []);
+    }, [searchParams]);
 
     return (
         <div className="flex w-full flex-col">
             <h1 className="pt-6 text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-foreground text-center">
                 Todo's
             </h1>
+
+            <div className="flex justify-start items-center mt-4 px-2 lg:px-8">
+                <FilterTodos
+                    filter={filter}
+                    // setFilter={setFilter}
+                />
+            </div>
 
             <div className="flex justify-center items-center mt-4 px-2 lg:px-8">
                 <AddTodo onSave={fetchTodos} />
