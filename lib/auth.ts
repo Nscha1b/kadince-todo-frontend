@@ -3,6 +3,7 @@ import { AxiosResponse, AxiosResponseHeaders, AxiosHeaders } from "axios";
 import { LoginResponse, SignUpResponse } from "@/types/auth";
 
 export const ROUTE_AFTER_LOGIN = '/todos';
+export const HOME_ROUTE = '/';
 
 export const handleLogin = async (
     email: string, 
@@ -65,6 +66,23 @@ export const handleDemoLogin = async (): Promise<void> => {
         });
 
         return;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const handleLogout = async (): Promise<{success: boolean}> => {
+    try {
+        const res: AxiosResponse = await rubyApiClient.delete('/auth/sign_out');
+
+        await fetch('/api/auth/set-cookie', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accessToken: '', client: '', uid: '', tokenType:'' , expiry:'', user_id:'' }),
+        });
+
+        return { success: res.status === 200 };
     } catch (error) {
         console.log(error);
         throw error;
