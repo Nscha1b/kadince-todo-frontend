@@ -1,18 +1,13 @@
 'use client';
-import classNames from "classnames";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { handleLogin as authLogin } from "@/lib/auth";
-import { Input } from "@/components/inputs/input";
 import { Button } from "../buttons/button";
 import { LoginForm } from "./login-form";
 import { SignUpForm } from "./sign-up-form";
 import { ResetForm } from "./reset-form";
 import { DemoLogin } from "./demo-login";
 
-export function AuthForm({
-}: {
-    }) {
+export function AuthForm() {
     const router = useRouter();
     const [formType, setFormType] = useState<'login' | 'signup' | 'forgot-password'>('login');
     const [email, setEmail] = useState('');

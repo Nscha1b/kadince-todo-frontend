@@ -47,7 +47,11 @@ export function TodoCard({
     const handleSave = () => {
         if (onSave && formData.title.trim()) {
             onSave(formData);
-            creating ? resetNewTodos() : setEditing(false);
+            if (creating) {
+                resetNewTodos();
+            } else {
+                setEditing(false);
+            }
         }
     };
 
