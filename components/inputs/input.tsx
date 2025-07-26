@@ -17,7 +17,6 @@ export function Input({
     variant = 'default', 
     error = false, 
     helperText,
-    id,
     label = { text: '', hideLabel: false },
     ...props 
 }: InputProps) {
@@ -33,7 +32,7 @@ export function Input({
         ? "border-red-300 focus:ring-red-500 focus:border-red-500"
         : "border-gray-300 focus:ring-primary-dark focus:border-primary-dark";
 
-    const inputId = id || React.useId();
+    const inputId = React.useId();
 
     return (
         <div className="w-full">

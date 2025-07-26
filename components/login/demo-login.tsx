@@ -5,7 +5,7 @@ import { handleDemoLogin as demoLogin, ROUTE_AFTER_LOGIN } from "@/lib/auth";
 import { Button } from "../buttons/button";
 import { useToast } from "@/contexts/toast-context";
 
-export function DemoLogin({ }: {}) {
+export function DemoLogin() {
     const router = useRouter();
     const { addToast } = useToast();
 

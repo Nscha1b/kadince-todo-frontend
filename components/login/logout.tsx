@@ -5,7 +5,7 @@ import { handleLogout as logout, HOME_ROUTE } from "@/lib/auth";
 import { Button } from "../buttons/button";
 import { useToast } from '@/contexts/toast-context';
 
-export function Logout({}: {}) {
+export function Logout() {
     const { addToast } = useToast();
     const router = useRouter();
 
