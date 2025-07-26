@@ -14,7 +14,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row gap-14 justify-center items-stretch mt-12 px-2 lg:px-8">
                 {/* LEFT COL */}
                 <div className="flex-1 flex flex-col justify-center items-center lg:items-start">
-                    <StickyNote center={true} className="w-full w-[400px] flex justify-center outline-2 outline-offset-2 outline-foreground flex-col">
+                    <StickyNote center={true} className="w-full w-[350px] md:w-[400px] flex justify-center outline-2 outline-offset-2 outline-foreground flex-col">
                         <AuthForm />
                     </StickyNote>
                 </div>
