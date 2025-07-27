@@ -43,12 +43,14 @@ export function FilterTodos({ filter }: AddTodoProps) {
     const menuItems: PopupMenuItem[] = [all, completed, todo];
     return (
         <>
-            Filter:
-            <PopupMenu
-                trigger={
-                    <Button variant="plain">{filter}</Button>
-                }
-                items={menuItems}
-            />
+            <div className='flex items-center'>
+                Filter:
+                <PopupMenu
+                    trigger={
+                        <Button variant="plain">{filter}</Button>
+                    }
+                    items={menuItems}
+                />
+            </div>
         </>)
 }

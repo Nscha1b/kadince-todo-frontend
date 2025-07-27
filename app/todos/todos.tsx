@@ -9,7 +9,7 @@ import { TodoCard } from "@/components/todo-card";
 import { FilterTodos } from "@/components/filter-todos";
 import { useSearchParams } from "next/navigation";
 import { Logout } from "@/components/login/logout";
-import { Suspense } from "react";
+import { PrintReport } from "@/components/print-report";
 
 export default function Todos() {
     const searchParams = useSearchParams();
@@ -27,10 +27,10 @@ export default function Todos() {
     const filter = setFilter();
 
     const fetchTodos = useCallback(() => {
-    const query = searchParams?.size ? `?${searchParams.toString()}` : '';
-    rubyApiClient.get(`/todos${query}`)
-        .then((todoArray: AxiosResponse<Todo[]>) => setTodos(todoArray.data))
-        .catch(() => addToast("Failed to load todos", "error"));
+        const query = searchParams?.size ? `?${searchParams.toString()}` : '';
+        rubyApiClient.get(`/todos${query}`)
+            .then((todoArray: AxiosResponse<Todo[]>) => setTodos(todoArray.data))
+            .catch(() => addToast("Failed to load todos", "error"));
     }, [searchParams, addToast, setTodos]);
 
     const updateTodo = (todo: Todo) => {
@@ -80,10 +80,11 @@ export default function Todos() {
                 Todo&apos;s
             </h1>
 
-            <div className="flex justify-start items-center mt-4 px-2 lg:px-8">
+            <div className="flex justify-between items-center mt-4 px-2 lg:px-8">
                 <FilterTodos
                     filter={filter}
                 />
+                <PrintReport />
             </div>
 
             <div className="flex justify-center items-center mt-4 px-2 lg:px-8">
