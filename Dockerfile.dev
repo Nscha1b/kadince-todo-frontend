@@ -1,0 +1,18 @@
+# Development Dockerfile for Next.js
+FROM node:20-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy application code
+COPY . .
+
+# Expose port
+EXPOSE 4200
+
+# Default command
+CMD ["npm", "run", "dev"]
