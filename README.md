@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# README
 
-## Getting Started
+Hi! This is the Next JS frontend that powers https://kadince-todo-frontend.onrender.com/. This is a sample Todo application to show off some basic crud, and filtering skills. The base ask was....
 
-First, run the development server:
+> 1 week to complete the assignment while meeting at least the minimum functionality requirements:
+> 
+> *	View a list of to-do items with the ability to filter the list by
+> pending, complete, and all to-dos.*
+> 
+> *	Create a new to-do item
+> *	Edit a to-do item
+> *	Delete a to-do item
+> *	Complete a to-do item
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Backend Repository
+
+The backend github can be found here: https://github.com/Nscha1b/kadince-todo-api
+
+
+## Starting the project with Containers
+
+Make sure you have docker installed. The simplest way is:
+https://www.docker.com/products/docker-desktop/
+
+**1. Start the Services:**
+```
+docker-compose  up  --build
+```
+**2. Access your Frontend at:**  http://localhost:4200
+**3. Shell into the container (if needed):** 
+```
+docker-compose  exec  frontend  /bin/bash
+--or---
+docker-compose  exec  frontend  node
+```
+**4. Stopping the  service:** 
+```
+docker-compose  down
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Or to run it outside of a container, simply
+```
+npm  run  dev
+```
