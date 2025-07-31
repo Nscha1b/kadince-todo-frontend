@@ -27,13 +27,13 @@ export function SignUpForm({
         try {
             const resp = await authSignup(email, password, confirmPassword);
             if (resp?.status === 'success') {
-                addToast('Account created successfully! Please check your email.', 'success');
+                addToast('Account created successfully! You may now login with your account.', 'success');
                 setFormType('login')
             } else {
                 addToast('Failed to create account. Please try again.', 'error');
             }
         } catch (error) {
-            addToast('An error occurred during sign up. Please try again.', 'error');
+            addToast('An error occurred during sign up. Please try again. Passwords must match, contain a capital letter, number, and symbol. Must be atleast 6 characters.', 'error', 10000);
             console.log(error);
         }
     };
